@@ -7,7 +7,8 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'app-gray-900': 'hsl(248, 10%, 15%)',
+        'app-gray-900': 'hsl(248, 15%, 11%)',
+        'app-gray-800': 'hsl(248, 10%, 15%)',
         'app-gray-500': 'hsl(251, 9%, 53%)',
         'app-gray-200': 'hsl(252, 11%, 91%)',
         'app-blue': 'hsl(248, 15%, 11%)',

@@ -1,5 +1,6 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import PasswordCard from '../components/PasswordCard';
 
 const Home: NextPage = () => {
   return (
@@ -13,8 +14,9 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1>Hello, password generator app</h1>
+      <main className="flex items-center justify-center min-h-screen flex-col">
+        <h1>Password generator</h1>
+        <PasswordCard />
       </main>
     </div>
   );
