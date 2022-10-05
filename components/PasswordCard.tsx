@@ -99,7 +99,12 @@ const PasswordCard: React.FC = () => {
       return;
     }
 
+    setWasCopied(true);
     setPassword(generatedPassword);
+
+    setTimeout(() => {
+      setWasCopied(false);
+    }, 800);
   }, [
     characterLength,
     includeLowercaseLetters,

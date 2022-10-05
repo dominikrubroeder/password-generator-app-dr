@@ -58,6 +58,6 @@
   }
 
   button {
-    @apply transition active:scale-90;
+    @apply transition enabled:active:scale-90;
   }
 }
