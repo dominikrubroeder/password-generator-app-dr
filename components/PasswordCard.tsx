@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, SetStateAction } from 'react';
 import Checkbox from './Checkbox';
+import PasswordStrength from './PasswordStrength';
 import IconArrowRight from './svg/IconArrowRight';
 import IconCopy from './svg/IconCopy';
 
 const PasswordCard: React.FC = () => {
-  const [includeUppercaseLetters, setIncludeUppercaseLetters] = useState(false);
-  const [includeLowercaseLetters, setIncludeLowercaseLetters] = useState(false);
-  const [includeNumbers, setIncludeNumbers] = useState(false);
+  const [characterLength, setCharacterLength] = useState(10);
+  const [includeUppercaseLetters, setIncludeUppercaseLetters] = useState(true);
+  const [includeLowercaseLetters, setIncludeLowercaseLetters] = useState(true);
+  const [includeNumbers, setIncludeNumbers] = useState(true);
   const [includeSymbols, setIncludeSymbols] = useState(false);
+
+  const handleChange = () => {};
 
   return (
     <div className="grid gap-4 max-w-[33.75rem]">
@@ -26,10 +30,21 @@ const PasswordCard: React.FC = () => {
       <div className="grid gap-4 py-6 px-8 bg-app-gray-800">
         <div className="flex items-center justify-between">
           <h2>Character Length</h2>
-          <span className="text-app-green">10</span>
+          <span className="text-app-green">{characterLength}</span>
         </div>
 
-        <input type="range" className="w-full" />
+        <input
+          type="range"
+          className="w-full"
+          min="0"
+          max="20"
+          step="1"
+          onChange={(event) =>
+            setCharacterLength(
+              event.target.value as unknown as SetStateAction<number>
+            )
+          }
+        />
 
         <ul className="grid gap-5">
           <li
@@ -66,21 +81,12 @@ const PasswordCard: React.FC = () => {
           </li>
         </ul>
 
-        <div className="flex items-center justify-between px-6 py-4 bg-app-gray-900">
-          <h2 className="text-app-gray-500">Strength</h2>
+        <PasswordStrength characterLength={characterLength} />
 
-          <div className="grid grid-cols-2 gap-2">
-            <span className="uppercase">Medium</span>
-            <div className="grid grid-cols-4">
-              <span className="w-[.625rem] h-full border border-app-yellow bg-app-yellow"></span>
-              <span className="w-[.625rem] h-full border border-app-yellow bg-app-yellow"></span>
-              <span className="w-[.625rem] h-full border border-app-yellow bg-app-yellow"></span>
-              <span className="w-[.625rem] h-full border border-bg-white bg-transparent"></span>
-            </div>
-          </div>
-        </div>
-
-        <button className="bg-app-green text-gray-800 uppercase p-4 flex items-center gap-2 justify-center">
+        <button
+          className="bg-app-green text-gray-800 uppercase p-4 flex items-center gap-2 justify-center border border-app-green transition duration-700 enabled:hover:bg-transparent enabled:hover:text-app-green disabled:opacity-10"
+          disabled={characterLength < 6}
+        >
           Generate
           <IconArrowRight />
         </button>
