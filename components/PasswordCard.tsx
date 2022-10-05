@@ -14,6 +14,7 @@ const PasswordCard: React.FC = () => {
   const [wasCopied, setWasCopied] = useState(false);
 
   const generatePassword = useCallback(() => {
+    // Setup all characters
     const letters = [
       'a',
       'b',
@@ -48,6 +49,7 @@ const PasswordCard: React.FC = () => {
 
     let characters: string[] = [];
 
+    // Fill characters Array based on current password settings selection and generate new password
     if (includeLowercaseLetters) characters.push(...letters);
     if (includeUppercaseLetters) characters.push(...uppercaseLetters);
     if (includeNumbers) characters.push(...numbers);
@@ -58,9 +60,26 @@ const PasswordCard: React.FC = () => {
       .sort((a, b) => a.sort - b.sort)
       .map(({ value }) => value);
 
-    const generatedPassword = shuffledCharacters
-      .slice(0, characterLength)
-      .join('');
+    const shortendCharacters = shuffledCharacters.slice(0, characterLength);
+
+    const generatedPassword = shortendCharacters.join('');
+
+    // Check if generatedPassword really includes all selected password settings, if not, regenerate
+    if (
+      (includeLowercaseLetters &&
+        !letters.some((letter) => generatedPassword.includes(letter))) ||
+      (includeUppercaseLetters &&
+        !uppercaseLetters.some((uppercaseLetter) =>
+          generatedPassword.includes(uppercaseLetter)
+        )) ||
+      (includeNumbers &&
+        !numbers.some((number) => generatedPassword.includes(number))) ||
+      (includeSymbols &&
+        !symbols.some((symbol) => generatedPassword.includes(symbol)))
+    ) {
+      generatePassword();
+      return;
+    }
 
     setPassword(generatedPassword);
   }, [
