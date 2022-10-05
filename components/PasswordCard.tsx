@@ -44,7 +44,24 @@ const PasswordCard: React.FC = () => {
       'z',
     ];
     const numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
-    const symbols = ['!', '?', '#', '$', '(', ')'];
+    const symbols = [
+      '!',
+      '?',
+      '#',
+      '$',
+      '(',
+      ')',
+      '&',
+      '%',
+      '/',
+      '=',
+      '+',
+      '-',
+      '*',
+      ',',
+      '<',
+      '>',
+    ];
     const uppercaseLetters = letters.map((letter) => letter.toUpperCase());
 
     let characters: string[] = [];
@@ -130,18 +147,27 @@ const PasswordCard: React.FC = () => {
           <span className="text-app-green">{characterLength}</span>
         </div>
 
-        <input
-          type="range"
-          className="w-full"
-          min="0"
-          max="20"
-          step="1"
-          onChange={(event) => {
-            setCharacterLength(
-              event.target.value as unknown as SetStateAction<number>
-            );
-          }}
-        />
+        <div className="relative">
+          <input
+            type="range"
+            className="relative w-full mt-1 z-20 bg-transparent"
+            min="0"
+            max="20"
+            step="1"
+            onChange={(event) => {
+              setCharacterLength(
+                event.target.value as unknown as SetStateAction<number>
+              );
+            }}
+          />
+
+          <div
+            className="w-full h-2 bg-app-green absolute left-0 top-1/2 z-10 -translate-y-1/2"
+            style={{ width: `${(characterLength / 20) * 100}%` }}
+          ></div>
+
+          <div className="w-full h-2 bg-app-gray-900 absolute left-0 top-1/2 z-0 -translate-y-1/2"></div>
+        </div>
 
         <ul className="grid gap-5">
           <li
