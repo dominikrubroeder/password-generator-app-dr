@@ -11,6 +11,7 @@ const PasswordCard: React.FC = () => {
   const [includeLowercaseLetters, setIncludeLowercaseLetters] = useState(true);
   const [includeNumbers, setIncludeNumbers] = useState(true);
   const [includeSymbols, setIncludeSymbols] = useState(false);
+  const [wasCopied, setWasCopied] = useState(false);
 
   const generatePassword = useCallback(() => {
     const letters = [
@@ -75,6 +76,16 @@ const PasswordCard: React.FC = () => {
     generatePassword();
   }, [characterLength, generatePassword]);
 
+  const copyPassword = () => {
+    navigator.clipboard.writeText(password);
+
+    setWasCopied(true);
+
+    setTimeout(() => {
+      setWasCopied(false);
+    }, 800);
+  };
+
   return (
     <div className="grid gap-4 max-w-[33.75rem]">
       <header className="flex justify-between items-center heading bg-app-gray-800 p-4">
@@ -85,9 +96,13 @@ const PasswordCard: React.FC = () => {
           readOnly
         />
 
-        <button>
-          <IconCopy />
-        </button>
+        <div className="flex items-center justify-end w-20 gap-2 text-xs">
+          {wasCopied && <span className="animate-ping">Copied!</span>}
+
+          <button onClick={copyPassword}>
+            <IconCopy />
+          </button>
+        </div>
       </header>
 
       <div className="grid gap-4 py-6 px-8 bg-app-gray-800">
@@ -147,7 +162,7 @@ const PasswordCard: React.FC = () => {
         <PasswordStrength characterLength={characterLength} />
 
         <button
-          className="bg-app-green text-gray-800 uppercase p-4 flex items-center gap-2 justify-center border border-app-green transition duration-700 enabled:hover:bg-transparent enabled:hover:text-app-green disabled:opacity-10 disabled:cursor-not-allowed"
+          className="bg-app-green text-gray-800 uppercase p-4 flex items-center gap-2 justify-center border border-app-green enabled:hover:bg-transparent enabled:hover:text-app-green disabled:opacity-10 disabled:cursor-not-allowed"
           disabled={characterLength < 6}
           onClick={generatePassword}
         >
