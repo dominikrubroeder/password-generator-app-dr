@@ -18,6 +18,18 @@ const Home: NextPage = () => {
         <h1 className="text-app-gray-500 mb-8">Password generator</h1>
         <section className="max-w-[33.75rem] w-full">
           <PasswordCard />
+
+          <p className="my-8 text-xs text-app-neutral-blue-grayish px-4 w-full text-center text-white opacity-20">
+            Frontend challenge by{' '}
+            <a
+              href="https://www.frontendmentor.io/challenges/password-generator-app-Mr8CLycqjh"
+              target="_blank"
+              rel="noreferrer"
+            >
+              frontendmentor.io
+            </a>
+            , developed by Dominik Rubröder
+          </p>
         </section>
       </main>
     </div>
