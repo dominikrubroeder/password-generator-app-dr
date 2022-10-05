@@ -12,6 +12,7 @@ const PasswordCard: React.FC = () => {
   const [includeNumbers, setIncludeNumbers] = useState(true);
   const [includeSymbols, setIncludeSymbols] = useState(false);
   const [wasCopied, setWasCopied] = useState(false);
+  const [showCopyText, setShowCopyText] = useState(false);
 
   const generatePassword = useCallback(() => {
     // Setup all characters
@@ -118,24 +119,37 @@ const PasswordCard: React.FC = () => {
     setWasCopied(true);
 
     setTimeout(() => {
-      setWasCopied(false);
+      setShowCopyText(true);
     }, 800);
+
+    setTimeout(() => {
+      setWasCopied(false);
+      setShowCopyText(false);
+    }, 2400);
   };
 
   return (
-    <div className="grid gap-4 max-w-[33.75rem]">
-      <header className="flex justify-between items-center heading bg-app-gray-800 p-4">
-        <input
-          className="bg-transparent focus:outline-none"
-          value={password}
-          placeholder="P4$5W0rD!"
-          readOnly
-        />
+    <div className="grid gap-4">
+      <header className="relative flex justify-between items-center heading bg-app-gray-800 p-4 h-[4.6875rem]">
+        {!wasCopied && (
+          <div className="text-[1.5rem] z-10 sm:text-[2rem] animate-fadeUp">
+            {password}
+          </div>
+        )}
 
-        <div className="flex items-center justify-end w-20 gap-2 text-xs">
-          {wasCopied && <span className="animate-ping">Copied!</span>}
+        <div
+          className={`flex items-center justify-start absolute right-0 top-0 bottom-0 left-0 px-4 bg-transparent transition overflow-hidden after:content-[''] after:h-full after:absolute after:inset-0 after:z-0 after:transition after:bg-app-green after:duration-300 ${
+            wasCopied ? 'after:animate-width after:visible' : 'after:invisible'
+          }`}
+        >
+          {showCopyText && (
+            <span className="text-app-green animate-fadeUp">Copied!</span>
+          )}
 
-          <button onClick={copyPassword}>
+          <button
+            onClick={copyPassword}
+            className="absolute top-0 right-4 bottom-0 z-10"
+          >
             <IconCopy />
           </button>
         </div>

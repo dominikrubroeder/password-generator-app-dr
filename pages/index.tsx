@@ -14,9 +14,11 @@ const Home: NextPage = () => {
         <link rel="icon" href="/images/favicon-32x32.png" type="image/png" />
       </Head>
 
-      <main className="flex items-center justify-center min-h-screen flex-col">
+      <main className="flex items-center justify-center min-h-screen flex-col p-4 sm:p-0">
         <h1 className="text-app-gray-500 mb-8">Password generator</h1>
-        <PasswordCard />
+        <section className="max-w-[33.75rem] w-full">
+          <PasswordCard />
+        </section>
       </main>
     </div>
   );
